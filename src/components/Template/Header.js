@@ -104,9 +104,9 @@ function Header() {
                     <div className="row align-items-center">
                         <div className="col-md-3">
                             <div className="logo">
-                                <a href="/">
+                                <Link to="/">
                                     <img src={logo} alt="Logo"></img>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -118,10 +118,10 @@ function Header() {
                         </div>
                         <div className="col-md-3">
                             <div className="user">
-                                <a href="/cart" className="btn cart">
+                                <Link to="/cart" className="btn cart">
                                     <i className="fa fa-shopping-cart"></i>
                                     <span>({countCart})</span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
