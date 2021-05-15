@@ -87,8 +87,8 @@ function Header() {
                                     ) : (
                                         <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                             <div className="navbar-nav mr-auto">
-                                                    <a href="/login" className="dropdown-item color">Login</a>
-                                                    <a href="/register" className="dropdown-item color">Register</a>
+                                                    <Link to="/login" className="dropdown-item color">Login</Link>
+                                                    <Link href="/register" className="dropdown-item color">Register</Link>
                                             </div>
                                         </div>
                                     )}
