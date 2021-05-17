@@ -61,7 +61,7 @@ function Header() {
                         <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div className="navbar-nav mr-auto">
                                 <Link to='/'className="nav-item nav-link" >Home</Link>
-                                <Link  to={{
+                                <Link to={{
                                         pathname: '/products',
                                         state: {
                                             check: 0, 
@@ -73,7 +73,7 @@ function Header() {
                                 }
                                 <Link to='/cart'className="nav-item nav-link" >Cart</Link>
                                 <Link to='/contact'className="nav-item nav-link" >Contact</Link>
-                                <a href='/post'className="nav-item nav-link" >Post</a>
+                                <Link to='/post'className="nav-item nav-link" >Post</Link>
                             </div>
                             <div className="navbar-nav ml-auto">                               
                                 {(login.IsLogin ===true ) ? ( 
