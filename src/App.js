@@ -28,7 +28,7 @@ function App() {
           <Header/>
             <Switch>
               <Route path='/' exact component={Home} /> 
-              <Route path='/home' component={Home} /> 
+              <Route path='/home' render={(props) => <Home />} /> 
               <Route path='/register' render={(props) => <Register />}/> 
               <Route path='/cart' component={Cart} /> 
               <Route path='/products' component={Products} />
