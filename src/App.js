@@ -22,10 +22,10 @@ import ViewOrder from './components/MyAccount/Order/ViewOrder';
 function App() {
   return (
     <div >
-      <BrowserRouter>
         <LoginContextProvider>
-          <Header/>
+         
           <Router>
+          <Header/>
             <Switch>
               <Route path='/' exact component={Home} /> 
               <Route path='/home' component={Home} /> 
@@ -48,7 +48,6 @@ function App() {
             </Router>
           <Footer/>
         </LoginContextProvider>
-        </BrowserRouter>
     </div>
   );
 }
