@@ -26,7 +26,7 @@ function App() {
           <Header/>
             <Route path='/' exact component={Home} /> 
             <Route path='/home' exact component={Home} /> 
-            <Route path='/register' component={Register} /> 
+            <Route path='/register' render={(props) => <Register />}/> 
             <Route path='/cart' component={Cart} /> 
             <Route path='/products' component={Products} />
             <Route path='/login' component={Login} />
