@@ -73,7 +73,7 @@ function Header() {
                                 }
                                 <Link to='/cart'className="nav-item nav-link" >Cart</Link>
                                 <Link to='/contact'className="nav-item nav-link" >Contact</Link>
-                                <Link to='/post'className="nav-item nav-link" >Post</Link>
+                                <a href='/post'className="nav-item nav-link" >Post</a>
                             </div>
                             <div className="navbar-nav ml-auto">                               
                                 {(login.IsLogin ===true ) ? ( 

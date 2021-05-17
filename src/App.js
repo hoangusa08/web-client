@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, } from "react-router-dom";
+import { Router, Route, } from "react-router-dom";
 import Header from "./components/Template/Header"
 import Footer from "./components/Template/Footer"
 import Login from "./components/Login/Login"
@@ -21,7 +21,7 @@ import ViewOrder from './components/MyAccount/Order/ViewOrder';
 function App() {
   return (
     <div >
-      <BrowserRouter>
+      <Router>
         <LoginContextProvider>
           <Header/>
             <Route path='/' exact component={Home} /> 
@@ -43,7 +43,7 @@ function App() {
             <Route path='/post-detail/:id' component={PostDetail} /> 
           <Footer/>
           </LoginContextProvider>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }
