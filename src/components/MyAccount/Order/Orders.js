@@ -2,11 +2,22 @@ import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import API from '../../Config/Api';
 import OrderItem from './OrderItem'
+import Pagination from '../../Pagination/index'
 export default function Order() {
 
     const [user , setuser] = useState("");
     const [orderItem, setOrderItem] = useState([]);
     const [listInvoice, setListInvoice] = ([])
+    const [pagination, setPagination] = useState({
+        page: 0,
+        limit: 5,
+        totalPages: 1
+    })
+
+    const [filters, setFilters] = useState({
+        page: 0,
+        category_edit_id: 0
+    })
     const token = {
         headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} 
     }
@@ -44,12 +55,20 @@ export default function Order() {
 
                 // console.log(listInvoiceHandled)
                 setOrderItem(listInvoiceHandled)
+                setPagination({
+                    page: response.data.pageIndex,
+                    totalPages: response.data.totalPage
+                })
            })
            .catch(function (error) {
              console.log(error)
            }) 
     }, [])
-
+    function handlePageChange(newPage) { 
+        setFilters({
+            page: newPage
+        })
+    }
     return (
         (user !== null) ? (    
         <div className="my-account">
@@ -99,11 +118,16 @@ export default function Order() {
                             </div>
                         </div>
                     </div>
+                    <br/>
+                    <Pagination
+                            pagination={pagination}
+                            onPageChange={handlePageChange}
+                    />   
                 </div>
             </div>
         </div>
     </div> ) :(
-        <div className="dangnhap">bạn cần đăng nhập </div>
+        <div className="dangnhap">You need to login</div>
     )
     )
 }

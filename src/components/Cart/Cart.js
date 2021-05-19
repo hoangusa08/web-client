@@ -11,7 +11,7 @@ function Cart() {
 
 	useEffect(() => {
         let cart = JSON.parse(localStorage.getItem('cart'));
-        
+        console.log(cart)
         let keys = [];
 
         for (var item in cart) {
@@ -120,7 +120,6 @@ function Cart() {
                 <div className="container-fluid">
                     <ul className="breadcrumb">
                         <li className="breadcrumb-item"><a href="#">Home</a></li>
-                        <li className="breadcrumb-item"><a href="#">Products</a></li>
                         <li className="breadcrumb-item active">Cart</li>
                     </ul>
                 </div>
@@ -162,10 +161,10 @@ function Cart() {
                         <div className="cart-page-inner">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <div className="coupon">
+                                    {/* <div className="coupon">
                                         <input type="text" placeholder="Coupon Code"></input>
                                         <button>Apply Code</button>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="col-md-12">
                                     <div className="cart-summary">

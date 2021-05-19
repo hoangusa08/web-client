@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, } from "react-router-dom";
 import Header from "./components/Template/Header"
 import Footer from "./components/Template/Footer"
 import Login from "./components/Login/Login"
@@ -10,7 +10,6 @@ import Cart from './components/Cart/Cart'
 import Home from './components/Home/Home'
 import ProductDetail from "./components/Product/ProductDetail"
 import Products from './components/Product/Products';
-
 import MyAccount from './components/MyAccount/MyAccount'
 import Order from './components/MyAccount/Order/Orders'
 import UpdateAccount from './components/MyAccount/UpdateAccount'
@@ -18,36 +17,35 @@ import Post from './components/Post/Post';
 import Checkout from './components/Checkout/Checkout'
 import PostDetail from './components/Post/PostDetail';
 import ViewOrder from './components/MyAccount/Order/ViewOrder';
+import CheckoutBuyNow from './components/Checkout/CheckouBuyNow';
 
 function App() {
   return (
     <div >
+      <BrowserRouter>
         <LoginContextProvider>
-         
-          <Router>
           <Header/>
-            <Switch>
-              <Route path='/' exact component={Home} /> 
-              <Route path='/home' render={(props) => <Home />} /> 
-              <Route path='/register' render={(props) => <Register />}/> 
-              <Route path='/cart' component={Cart} /> 
-              <Route path='/products' component={Products} />
-              <Route path='/login' component={Login} />
-              <Route path='/order' component={Order} />
-              <Route path='/view-order/:id' component={ViewOrder} />
+            <Route path='/' exact component={Home} /> 
+            <Route path='/home' exact component={Home} /> 
+            <Route path='/register' component={Register} /> 
+            <Route path='/cart' component={Cart} /> 
+            <Route path='/products' component={Products} />
+            <Route path='/login' component={Login} />
+            <Route path='/order' component={Order} />
+            <Route path='/view-order/:id' component={ViewOrder} />
 
-              <Route path='/updateaccount' component={UpdateAccount} />
-              <Route path='/myaccount' component={MyAccount} />
-              <Route path='/contact' component={Contact} /> 
-              <Route path='/checkout' component={Checkout} />  
-              <Route path='/productdetail/:id' component={ProductDetail} /> 
-              
-              <Route path='/post' component={Post} /> 
-              <Route path='/post-detail/:id' component={PostDetail} /> 
-            </Switch>
-            </Router>
+            <Route path='/updateaccount' component={UpdateAccount} />
+            <Route path='/myaccount' component={MyAccount} />
+            <Route path='/contact' component={Contact} /> 
+            <Route path='/checkout' component={Checkout} />  
+            <Route path='/checkout-buy-now/:id' component={CheckoutBuyNow} /> 
+            <Route path='/productdetail/:id' component={ProductDetail} /> 
+            
+            <Route path='/post' component={Post} /> 
+            <Route path='/post-detail/:id' component={PostDetail} /> 
           <Footer/>
-        </LoginContextProvider>
+          </LoginContextProvider>
+      </BrowserRouter>
     </div>
   );
 }

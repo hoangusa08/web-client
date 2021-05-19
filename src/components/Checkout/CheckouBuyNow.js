@@ -5,13 +5,13 @@ import API from '../Config/Api';
 import NumberFormat from 'react-number-format';
 import CartItemCheckout from './CartItemCheckout'
 import {LoginContext} from '../../context/LoginContext'
-function Checkout() {
+function CheckoutBuyNow(props) {
     const [productItem , setProductItem] = useState([])
     const [total, setTotal] = useState(0)
     const [id, setId] = useState('')
     let history = useHistory();
-    const login = useContext(LoginContext)
-    
+    const IsLogin = useContext(LoginContext)
+    console.log(IsLogin.IsLogin)
     const token = {
         headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} 
     }
@@ -24,7 +24,8 @@ function Checkout() {
         address: "",
         email: "",
         phoneNumber: "",
-})
+    })
+    const idProduct = props.match.params.id
     useEffect(() => {
         let token = {
             headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} 
@@ -36,7 +37,9 @@ function Checkout() {
     }, [localStorage.getItem("token")])
 
     useEffect(() => {
-        let cart = JSON.parse(localStorage.getItem('cart'));
+    
+        let cart = {};
+        cart[idProduct] = 1
         let keys = [];
         for (var item in cart) {
             if(cart.hasOwnProperty(item)){
@@ -115,7 +118,7 @@ function Checkout() {
            
             console.log(response.data)
             // alert("Đặt hàng thành công")
-            window.localStorage.removeItem("cart")
+            // window.localStorage.removeItem("cart")
             history.push({
                 pathname: '/home',
                 state: { report: 'Order Success' }
@@ -127,19 +130,8 @@ function Checkout() {
         })
     }
 
-  const renderProductCart = () => {
-    console.log(productItem)
-    // let {productItem} = this.state 
-    if(Array.isArray(productItem) && productItem.length > 0) {
-         productItem.map((product, index) =>          
-            <CartItemCheckout product={product} remove={this.removeFromCart} key={index} changeQty={this.changeQty} />
-        )
-     } 
-    }
-
 
     return (
-        (login.IsLogin !== false) ? (
         <div>
             <div className="breadcrumb-wrap">
                 <div className="container-fluid">
@@ -212,12 +204,10 @@ function Checkout() {
                     </div>
                 </div>
             </div>
-        </div>) : (
-        <div className="dangnhap">You need to login </div>
-    )
+        </div>
     )
   
 
 }
 
-export default Checkout
+export default CheckoutBuyNow

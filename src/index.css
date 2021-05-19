@@ -91,3 +91,41 @@ code {
 .inputdisable{
   color: #ff6f61;
 }
+
+.tab-content .tab-pane .article-head h1 {
+  display: block;
+  font-size: 36px;
+  color: #333333;
+  padding: 0px;
+  margin: 0px 0px 5px 0px;
+}
+
+.tab-content .tab-pane img {
+  vertical-align: middle;
+}
+
+.synopsis-content {
+    margin-top: 10px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.div-post {
+    position: relative;
+    padding: 40px;
+    -webkit-box-shadow: 0 1px 10px rgb(0 0 0 / 50%);
+    box-shadow: 0 1px 10px rgb(0 0 0 / 50%);
+    background-color: #fff;
+    margin-top: -80px;
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.97);
+}
+
+img, iframe {
+  max-width: 100%;
+}

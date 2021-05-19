@@ -61,7 +61,7 @@ function Header() {
                         <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div className="navbar-nav mr-auto">
                                 <Link to='/'className="nav-item nav-link" >Home</Link>
-                                <Link to={{
+                                <Link  to={{
                                         pathname: '/products',
                                         state: {
                                             check: 0, 
@@ -92,8 +92,6 @@ function Header() {
                                             </div>
                                         </div>
                                     )}
-                                    
-                                
                             </div>
                         </div>
                     </nav>

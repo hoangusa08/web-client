@@ -2,7 +2,18 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import API from '../Config/Api'
+import { Markup } from 'interweave';
+const imgStyle = {
+    // border: '2px solid red',
+    // borderRadius: '8px',
+
+    width: '70%',
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+};
 function PostDetail() {
+
     const [post, setPost] = useState({});
     const history=useHistory();
     useEffect(() => {
@@ -11,38 +22,57 @@ function PostDetail() {
         }
         console.log(token)
         const id = history.location.pathname.split("/")[2];
-        API.get(`client/post/${id}`, token).then((response)=> {
-            console.log(response.data)
-            setPost(response.data);
+        API.get(`client/post/${id}`).then((response)=> {
+            console.log(response.data[0])
+            setPost(response.data[0]);
         }).catch((error) =>{
         });
 
     }, [])
 
     return (
-        <div className="my-account">
-            <div className="container-fluid">
-                <div className="row">
-                    {/* <div className="col-md-3">
-                        <div className="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                            <a className="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i className="fa fa-tachometer-alt"></i>Home</a>
-                            <a className="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i className="fa fa-shopping-bag"></i>Product</a>
-                            <a className="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i className="fa fa-credit-card"></i>Cart</a>
-                            <a className="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i className="fa fa-map-marker-alt"></i>Contact</a>
-                            <a className="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i className="fa fa-user"></i>List Post</a>
-                        </div>
-                    </div> */}
-                    <div className="col-md-12">
-                        <div className="tab-content">
-                            <div className="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
-                                <h4>{post.title}</h4>
-                                {unescape(post.content)}
+        <div>
+            <div className="breadcrumb-wrap">
+                <div className="container-fluid">
+                    <ul className="breadcrumb">
+                        <li className="breadcrumb-item"><a href="#">Home</a></li>
+                        <li className="breadcrumb-item"><a href="#">Post</a></li>
+                        <li className="breadcrumb-item active">Post Detail</li>
+                    </ul>
+                </div>
+            </div>
+            <div className="my-account">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-md-10">
+                            <div className="tab-content">
+                                <div className="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                                    <div className="article-head">
+                                        <h1>{post.title}</h1>
+                                    </div>
+                                    <div className="article-content">
+                                        <div className="article-body">
+                                            <div>
+                                                <br/>
+                                            </div>
+                                            <div className="img" >
+                                                <a href="#"><img style={imgStyle} src={post.linkImage} alt="Image"></img></a>
+                                            </div>
+                                            <div>
+                                                <br/>
+                                            </div>
+                                            <Markup className="synopsis-content" content={post.content}/>
+                                    </div>
+                                    </div>
+    
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
 
     )
 }

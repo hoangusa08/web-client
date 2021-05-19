@@ -1,7 +1,9 @@
 import React, {useState , useContext } from 'react'
 import {Link} from 'react-router-dom'
+import {useHistory} from 'react-router'
 function Card(props) {
     const {product} = props;
+    let history = useHistory();
     var name = product.name.split(' ')
     if (name.length > 5) { product.name = name[0]+" "+name[1]+" "+name[2]+" "+name[3]+" "+name[4]+"..."}
     const [quantity, setquantity] = useState(1);
@@ -21,7 +23,7 @@ function Card(props) {
             <div className="product-item">
                     <div className="product-title">
                         <Link to={`/productdetail/${product.id}`}>
-                           {product.name}
+                           {product.name} ({product.name_Size})
                         </Link>
                         <div className="ratting">
                             <i className={product.numberOfStar >=1 ?"fa fa-star": product.numberOfStar >= 0.5 ? 'fa fa-star-half-o':'fa fa-star-o'}></i>
@@ -43,7 +45,7 @@ function Card(props) {
                     </div>
                     <div className="product-price">
                         <h3>{product.price+" "}<span><h3> VND</h3></span></h3>
-                        <a className="btn" href="/cart"><i className="fa fa-shopping-cart"></i>Buy Now</a>
+                        <button className="btn" onClick ={ e => {history.push(`/checkout-buy-now/${product.id}`)}}><i className="fa fa-shopping-cart"></i>Buy Now</button>
                     </div>
                     
             </div>

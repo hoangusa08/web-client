@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {Link} from 'react-router-dom'
 import API from '../../Config/Api';
 import OrderItem from './OrderItem'
+import {LoginContext} from '../../../context/LoginContext'
 export default function ViewOrder(props) {
     const imgStyle = {
         // border: '2px solid red',
@@ -9,6 +10,7 @@ export default function ViewOrder(props) {
         width: '50px',
         display: 'inline'
     };
+    const login = useContext(LoginContext)
     const [user , setuser] = useState("");
     const [orderItem, setOrderItem] = useState([]);
     // const [listInvoice, setListInvoice] = ([])
@@ -43,7 +45,7 @@ export default function ViewOrder(props) {
     }, [])
 
     return (
-        (user !== null) ? (    
+        (login.IsLogin !== false) ? (
         <div className="my-account">
         <div className="container-fluid">
             <div className="row">
@@ -110,7 +112,7 @@ export default function ViewOrder(props) {
             </div>
         </div>
     </div> ) :(
-        <div className="dangnhap">Bạn cần đăng nhập </div>
+        <div className="dangnhap">You need to login </div>
     )
     )
 }
