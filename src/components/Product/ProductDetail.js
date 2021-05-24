@@ -8,6 +8,7 @@ import Api from '../Config/Api'
 import { Link } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import axios from 'axios';
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -78,28 +79,24 @@ function ProductDetail() {
             setcolorSizeL(response.data.l);
             setcolorSizeXL(response.data.xl);
             setcolorSizeXXL(response.data.xxl);
-            Api.get(`client/brand/relateProduct/${response.data.id_brand}`).then((response)=> {
-                setbrandRelated(response.data.content);
-            }).catch((error) =>{
-            });
-            Api.get(`client/category/relateProduct/${response.data.id_cate}`).then((response)=> {
-                setcateRelated(response.data.content);
-            }).catch((error) =>{
-            });
+            axios.all([
+                Api.get(`client/brand/relateProduct/${response.data.id_brand}`),
+                Api.get(`client/category/relateProduct/${response.data.id_cate}`)
+            ]).then((response)=> {
+                setbrandRelated(response[0].data.content);
+                setcateRelated(response[1].data.content);
+            });  
         }).catch((error) =>{
         });
-        Api.get(`client/review/${id}`).then((response)=> {
-                setreview(response.data.content);
-            }).catch((error) =>{
-            });
-        Api.get('client/category/all').then((response)=> {
-            setlistCategory(response.data);
-        }).catch((error) =>{
-        });
-        Api.get('client/brand/all').then((response)=> {
-            setlistBrand(response.data);
-        }).catch((error) =>{
-        });
+        axios.all([
+            Api.get(`client/review/${id}`),
+            Api.get('client/category/all'),
+            Api.get('client/brand/all')
+        ]).then((response)=> {
+            setreview(response[0].data.content);
+            setlistCategory(response[1].data);
+            setlistBrand(response[2].data);
+        });  
     }, [filter.review]);
     const colorinsize = (size) => {
         switch(size) {

@@ -7,7 +7,6 @@ export default function Order() {
 
     const [user , setuser] = useState("");
     const [orderItem, setOrderItem] = useState([]);
-    const [listInvoice, setListInvoice] = ([])
     const [pagination, setPagination] = useState({
         page: 0,
         limit: 5,

@@ -1,15 +1,9 @@
-import React, { Component, useEffect, useState } from 'react';
-// import { Link } from "@reach/router";
-import NumberFormat from 'react-number-format';
-import config from '../../Config/Config';
+import React from 'react';
 import { useHistory } from 'react-router';
 function OrderItem(props) {
     const { order } = props;
     // console.log(order);
     const history = useHistory()
-    const view = (e) => {
-        // console.log(e.target)
-    } 
     return (
         <tr>
             <td>{order.id}</td>

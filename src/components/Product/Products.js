@@ -2,6 +2,7 @@ import Api from '../Config/Api';
 import React, {useEffect, useState} from 'react'
 import Card from './Card';
 import {Link} from 'react-router-dom'
+import axios from 'axios';
 function Products(props) {
     const [listProduct , setlistProduct] = useState([]);
     const [listCategory, setlistCategory] = useState([]);
@@ -77,14 +78,14 @@ function Products(props) {
     }, [filter]);
     useEffect(() => {
         async function getCategoryAndBrand() {
-            Api.get('client/category/all').then((response)=> {
-                setlistCategory(response.data);
-            }).catch((error) =>{
-            });
-            Api.get('client/brand/all').then((response)=> {
-                setlistBrand(response.data);
-            }).catch((error) =>{
-            });
+            axios.all([
+                Api.get('client/category/all'),
+                Api.get('client/brand/all')
+            ]).then((response)=> {
+                console.log(response);
+                setlistCategory(response[0].data);
+                setlistBrand(response[1].data);
+            });  
         }
         getCategoryAndBrand();
     }, []);

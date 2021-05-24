@@ -18,6 +18,9 @@ export default function NewProduct() {
             }).catch((error) =>{
             })
     },[])
+    if(listProductNP.length ===0 ) {
+        return <></>
+    } else {
     return (
     <div>
        <div className="newsletter">
@@ -51,5 +54,5 @@ export default function NewProduct() {
             </div>
         </div>
     </div>
-    )
+    )}
 }

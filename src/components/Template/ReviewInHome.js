@@ -8,19 +8,22 @@ const breakPoints = [
     { width: 768, itemsToShow: 2 },
   ];
 export default function ReviewInHome() {
-    const [state, setstate] = useState([]);
+    const [review, setreview] = useState([]);
     useEffect(() => {
         Api.get('client/review/good').then((response)=> {
-            setstate(response.data.content);
+            setreview(response.data.content);
         }).catch((error) =>{
         })
     }, [])
+    if(review.length === 0) {
+        return (<></>)
+    } else
     return (
         <div className="review">
             <div className="container-fluid">
                 <div className="row align-items-center review-slider normal-slider">
                     <Carousel breakPoints={breakPoints}>
-                        {state.map((review) => (
+                        {review.map((review) => (
                             <div className="review-slider-item" key={review.id}>
                                 <div className="review-img">
                                     <img src={reviewImage} alt="Image"></img>

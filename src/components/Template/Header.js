@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {useHistory} from 'react-router'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import {LoginContext} from '../../context/LoginContext'
 import logo from './image/logo.png'
 function Header() {
     const login = useContext(LoginContext);
     const [countCart, setCountCart] = useState(0);
     const [searchStr, setsearchStr] = useState("")
+    const [menu, setmenu] = useState("")
     var fullname = login.Fullname;
     const history = useHistory();
     useEffect(() => {
@@ -58,22 +59,44 @@ function Header() {
             <div className="nav">
                 <div className="container-fluid">
                     <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-                        <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <h1 className="navbar-brand">MENU</h1>
+                        <button type="button" className="navbar-toggler"
+                        onClick = { () => {setmenu(menu === "" ? "show" : "")}}>
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className={"collapse navbar-collapse justify-content-between "+ menu}>
                             <div className="navbar-nav mr-auto">
-                                <Link to='/'className="nav-item nav-link" >Home</Link>
-                                <Link  to={{
+                                <NavLink to='/' activeStyle = {{
+                                    color : 'black'
+                                }} exact className="nav-item nav-link" >Home</NavLink>
+                                <NavLink  to={{
                                         pathname: '/products',
                                         state: {
                                             check: 0, 
                                             id : 0
                                         }
-                                        }}className="nav-item nav-link" >Products</Link>  
+                                        }} activeStyle = {{
+                                           
+                                            color : 'black'
+                                        }} exact className="nav-item nav-link" >Products</NavLink>  
                                 {fullname  &&                              
-                                <Link to='/myaccount'className="nav-item nav-link" >account</Link>
+                                <NavLink to='/myaccount' activeStyle = {{
+                                   
+                                    color : 'black'
+                                }} exact className="nav-item nav-link" >account</NavLink>
                                 }
-                                <Link to='/cart'className="nav-item nav-link" >Cart</Link>
-                                <Link to='/contact'className="nav-item nav-link" >Contact</Link>
-                                <Link to='/post'className="nav-item nav-link" >Post</Link>
+                                <NavLink to='/cart' activeStyle = {{
+                                   
+                                    color : 'black'
+                                }} exact className="nav-item nav-link" >Cart</NavLink>
+                                <NavLink to='/contact' activeStyle = {{
+                                   
+                                    color : 'black'
+                                }} exact className="nav-item nav-link" >Contact</NavLink>
+                                <NavLink to='/post' activeStyle = {{
+                                   
+                                    color : 'black'
+                                }} exact className="nav-item nav-link" >Post</NavLink>
                             </div>
                             <div className="navbar-nav ml-auto">                               
                                 {(login.IsLogin ===true ) ? ( 
@@ -87,8 +110,12 @@ function Header() {
                                     ) : (
                                         <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                             <div className="navbar-nav mr-auto">
-                                                    <Link to="/login" className="dropdown-item color">Login</Link>
-                                                    <Link to="/register" className="dropdown-item color">Register</Link>
+                                                    <NavLink to="/login" activeStyle = {{
+                                                            color : 'black'
+                                                        }} exact className="nav-item nav-link ">Login</NavLink>
+                                                    <NavLink to="/register" activeStyle = {{
+                                                            color : 'black'
+                                                        }} exact className="nav-item nav-link">Register</NavLink>
                                             </div>
                                         </div>
                                     )}
@@ -102,9 +129,9 @@ function Header() {
                     <div className="row align-items-center">
                         <div className="col-md-3">
                             <div className="logo">
-                                <Link to="/">
+                                <NavLink to="/">
                                     <img src={logo} alt="Logo"></img>
-                                </Link>
+                                </NavLink>
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -116,10 +143,10 @@ function Header() {
                         </div>
                         <div className="col-md-3">
                             <div className="user">
-                                <Link to="/cart" className="btn cart">
+                                <NavLink to="/cart" className="btn cart">
                                     <i className="fa fa-shopping-cart"></i>
                                     <span>({countCart})</span>
-                                </Link>
+                                </NavLink>
                             </div>
                         </div>
                     </div>

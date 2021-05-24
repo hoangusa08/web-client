@@ -12,7 +12,7 @@ export default function Slide() {
                             <img src="img/category-8.jpg"/>
                         </div>
                         <div className="img-item">
-                            <img src="img/category-3.jpg" />
+                            <img src="img/category-3.jpg"/>
                         </div>
                         <Link  to={{
                                         pathname: '/products',
