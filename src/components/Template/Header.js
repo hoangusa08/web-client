@@ -1,27 +1,32 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {useHistory} from 'react-router'
-import {NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {LoginContext} from '../../context/LoginContext'
 import logo from './image/logo.png'
 function Header() {
     const login = useContext(LoginContext);
     const [countCart, setCountCart] = useState(0);
     const [searchStr, setsearchStr] = useState("")
-    const [menu, setmenu] = useState("")
     var fullname = login.Fullname;
     const history = useHistory();
+    let numberProductInCart = login.numberProductInCart;
+
     useEffect(() => {
            login.LoginDispatch();
+           
     }, [fullname])
    
     useEffect(() => {
-        let cart = JSON.parse(localStorage.getItem('cart'));
-        let count = 0
-        for (var item in cart) {
-            count++
-        }
-        setCountCart(count)
-    }, [JSON.parse(localStorage.getItem('cart'))])
+        login.countNumberInCart()
+    }, []);
+    // useEffect(() => {
+    //     let cart = JSON.parse(localStorage.getItem('cart'));
+    //     let count = 0
+    //     for (var item in cart) {
+    //         count++
+    //     }
+    //     setCountCart(count)
+    // }, [JSON.parse(localStorage.getItem('cart'))])
 
     const LogoutHandle = () =>{
         login.LogoutDispatch();
@@ -59,44 +64,22 @@ function Header() {
             <div className="nav">
                 <div className="container-fluid">
                     <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-                        <h1 className="navbar-brand">MENU</h1>
-                        <button type="button" className="navbar-toggler"
-                        onClick = { () => {setmenu(menu === "" ? "show" : "")}}>
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className={"collapse navbar-collapse justify-content-between "+ menu}>
+                        <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div className="navbar-nav mr-auto">
-                                <NavLink to='/' activeStyle = {{
-                                    color : 'black'
-                                }} exact className="nav-item nav-link" >Home</NavLink>
-                                <NavLink  to={{
+                                <Link to='/'className="nav-item nav-link" >Home</Link>
+                                <Link  to={{
                                         pathname: '/products',
                                         state: {
                                             check: 0, 
                                             id : 0
                                         }
-                                        }} activeStyle = {{
-                                           
-                                            color : 'black'
-                                        }} exact className="nav-item nav-link" >Products</NavLink>  
+                                        }}className="nav-item nav-link" >Products</Link>  
                                 {fullname  &&                              
-                                <NavLink to='/myaccount' activeStyle = {{
-                                   
-                                    color : 'black'
-                                }} exact className="nav-item nav-link" >account</NavLink>
+                                <Link to='/myaccount'className="nav-item nav-link" >account</Link>
                                 }
-                                <NavLink to='/cart' activeStyle = {{
-                                   
-                                    color : 'black'
-                                }} exact className="nav-item nav-link" >Cart</NavLink>
-                                <NavLink to='/contact' activeStyle = {{
-                                   
-                                    color : 'black'
-                                }} exact className="nav-item nav-link" >Contact</NavLink>
-                                <NavLink to='/post' activeStyle = {{
-                                   
-                                    color : 'black'
-                                }} exact className="nav-item nav-link" >Post</NavLink>
+                                <Link to='/cart'className="nav-item nav-link" >Cart</Link>
+                                <Link to='/contact'className="nav-item nav-link" >Contact</Link>
+                                <Link to='/post'className="nav-item nav-link" >Post</Link>
                             </div>
                             <div className="navbar-nav ml-auto">                               
                                 {(login.IsLogin ===true ) ? ( 
@@ -110,12 +93,8 @@ function Header() {
                                     ) : (
                                         <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                             <div className="navbar-nav mr-auto">
-                                                    <NavLink to="/login" activeStyle = {{
-                                                            color : 'black'
-                                                        }} exact className="nav-item nav-link ">Login</NavLink>
-                                                    <NavLink to="/register" activeStyle = {{
-                                                            color : 'black'
-                                                        }} exact className="nav-item nav-link">Register</NavLink>
+                                                    <Link to="/login" className="dropdown-item color">Login</Link>
+                                                    <Link to="/register" className="dropdown-item color">Register</Link>
                                             </div>
                                         </div>
                                     )}
@@ -129,9 +108,9 @@ function Header() {
                     <div className="row align-items-center">
                         <div className="col-md-3">
                             <div className="logo">
-                                <NavLink to="/">
+                                <Link to="/">
                                     <img src={logo} alt="Logo"></img>
-                                </NavLink>
+                                </Link>
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -143,10 +122,10 @@ function Header() {
                         </div>
                         <div className="col-md-3">
                             <div className="user">
-                                <NavLink to="/cart" className="btn cart">
+                                <Link to="/cart" className="btn cart">
                                     <i className="fa fa-shopping-cart"></i>
-                                    <span>({countCart})</span>
-                                </NavLink>
+                                    <span>({numberProductInCart})</span>
+                                </Link>
                             </div>
                         </div>
                     </div>

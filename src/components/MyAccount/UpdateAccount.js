@@ -14,6 +14,8 @@ export default function UpdateAccount() {
         phoneNumber: "",
         id_role : 3
     });
+    const [retypePass, setretypePass] = useState("")
+    const [mess, setmess] = useState("")
     const history = useHistory()
     var token ={headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} }
     useEffect(() => {
@@ -37,12 +39,21 @@ export default function UpdateAccount() {
            
     }, [])
     function submitHandle() {
-        Api.patch(`client/user/${localStorage.id}`, userUpdate , token).then((response)=> {
-            alert(response.data.message);
-            history.push('/myaccount')
-        }).catch((error) =>{
-            console.log(error.response.data);
-        });      
+        console.log( retypePass.password);
+        if( retypePass !== "" && userUpdate.password !== "") {
+            if(retypePass === userUpdate.password){
+                Api.patch(`client/user/${localStorage.id}`, userUpdate , token).then((response)=> {
+                    alert(response.data.message);
+                    history.push('/myaccount')
+                }).catch((error) =>{
+                    console.log(error.response.data);
+                });  
+            }else{
+                setmess("Your retype password is not correct")
+            }
+        }else {
+            setmess("You need enter your password")
+        }
     }
     const LogoutHandle = () =>{
         login.LogoutDispatch();
@@ -94,8 +105,16 @@ export default function UpdateAccount() {
                                     onChange={e => setuserUpdate({...userUpdate ,password : e.target.value})} value={userUpdate.password}></input>
                                 </div>
                                 <div className="col-md-12">
+                                    <label>Retype Password</label>
+                                    <input className="form-control" type="password" placeholder="RetypePassword"
+                                    onChange={e => setretypePass(e.target.value)} value={retypePass}></input>
+                                </div>
+                                <h3>{(mess !== "") && mess}</h3>
+                                
+                                <div className="col-md-12">
                                     <button className="btn" onClick={submitHandle}>Save Changes</button>
                                 </div>
+
                             </div>
                         </div>
                     </div>

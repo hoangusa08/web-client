@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Switch} from "react-router-dom";
+import { BrowserRouter, Route, } from "react-router-dom";
 import Header from "./components/Template/Header"
 import Footer from "./components/Template/Footer"
 import Login from "./components/Login/Login"
@@ -18,16 +18,16 @@ import Checkout from './components/Checkout/Checkout'
 import PostDetail from './components/Post/PostDetail';
 import ViewOrder from './components/MyAccount/Order/ViewOrder';
 import CheckoutBuyNow from './components/Checkout/CheckouBuyNow';
+
 function App() {
   return (
     <div >
       <BrowserRouter>
         <LoginContextProvider>
           <Header/>
-         <Switch>
             <Route path='/' exact component={Home} /> 
             <Route path='/home' exact component={Home} /> 
-            <Route path='/register' component={Register} /> s
+            <Route path='/register' component={Register} /> 
             <Route path='/cart' component={Cart} /> 
             <Route path='/products' component={Products} />
             <Route path='/login' component={Login} />
@@ -43,7 +43,6 @@ function App() {
             
             <Route path='/post' component={Post} /> 
             <Route path='/post-detail/:id' component={PostDetail} /> 
-            </Switch>
           <Footer/>
           </LoginContextProvider>
       </BrowserRouter>

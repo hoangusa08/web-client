@@ -8,7 +8,6 @@ import Api from '../Config/Api'
 import { Link } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import axios from 'axios';
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2 },
@@ -45,6 +44,7 @@ function ProductDetail() {
         let qty = cart[id] + parseInt(quantity);
         cart[id] = qty
         localStorage.setItem('cart', JSON.stringify(cart));
+        Login.countNumberInCart()
     }
     const addQty= (e) => {
         e.preventDefault();
@@ -79,24 +79,28 @@ function ProductDetail() {
             setcolorSizeL(response.data.l);
             setcolorSizeXL(response.data.xl);
             setcolorSizeXXL(response.data.xxl);
-            axios.all([
-                Api.get(`client/brand/relateProduct/${response.data.id_brand}`),
-                Api.get(`client/category/relateProduct/${response.data.id_cate}`)
-            ]).then((response)=> {
-                setbrandRelated(response[0].data.content);
-                setcateRelated(response[1].data.content);
-            });  
+            Api.get(`client/brand/relateProduct/${response.data.id_brand}`).then((response)=> {
+                setbrandRelated(response.data.content);
+            }).catch((error) =>{
+            });
+            Api.get(`client/category/relateProduct/${response.data.id_cate}`).then((response)=> {
+                setcateRelated(response.data.content);
+            }).catch((error) =>{
+            });
         }).catch((error) =>{
         });
-        axios.all([
-            Api.get(`client/review/${id}`),
-            Api.get('client/category/all'),
-            Api.get('client/brand/all')
-        ]).then((response)=> {
-            setreview(response[0].data.content);
-            setlistCategory(response[1].data);
-            setlistBrand(response[2].data);
-        });  
+        Api.get(`client/review/${id}`).then((response)=> {
+                setreview(response.data.content);
+            }).catch((error) =>{
+            });
+        Api.get('client/category/all').then((response)=> {
+            setlistCategory(response.data);
+        }).catch((error) =>{
+        });
+        Api.get('client/brand/all').then((response)=> {
+            setlistBrand(response.data);
+        }).catch((error) =>{
+        });
     }, [filter.review]);
     const colorinsize = (size) => {
         switch(size) {
@@ -219,7 +223,7 @@ function ProductDetail() {
                                     <div id="reviews" className="container tab-pane active">
                                             {review.map((review) => (
                                                 <div className="reviews-submitted" key={review.id}>
-                                                    <div className="reviewer">{review.name_User}</div>
+                                                    <div className="reviewer">{review.name_User} date: {review.timeReview}</div>
                                                     <div className="ratting">
                                                         <i className={review.number_Of_Star >=1 ?"fa fa-star": review.number_Of_Star >= 0.5 ? 'fa fa-star-half':'fa fa-star-o'}></i>
                                                         <i className={review.number_Of_Star >=2 ?"fa fa-star": review.number_Of_Star >= 1.5 ? 'fa fa-star-half':'fa fa-star-o'}></i>
@@ -268,7 +272,7 @@ function ProductDetail() {
                                 <div className="row align-items-center product-slider product-slider-4">
                                     <Carousel breakPoints={breakPoints}>
                                         {brandRelated.map((product) => (
-                                                <Card product={product} key={product.id}></Card>
+                                                <Card product={product} key={product.id} star={[]}></Card>
                                         ))}
                                     </Carousel>
                                 </div>
@@ -298,7 +302,7 @@ function ProductDetail() {
                                 <h2 className="title">Related Products (Category)</h2>
                                 <Carousel breakPoints={breakPoints}>
                                     {cateRelated.map((product) => (
-                                            <Card product={product} key={product.id}></Card>
+                                            <Card product={product} key={product.id} star={[]}></Card>
                                     ))}
                                 </Carousel>
                             </div>

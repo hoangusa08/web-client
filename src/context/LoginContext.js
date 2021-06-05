@@ -7,6 +7,7 @@ const LoginContextProvider =({children}) =>{
     const [Username , setUsername] = useState("");
     const [Fullname , setfullname] = useState("");
     const [isLogin , setisLogin] = useState(false);
+    const [numberProductInCart, setNumberProductInCart] = useState(0);
     const history = useHistory();
     // function dispatch
     const LoginDispatch = () =>{
@@ -30,14 +31,25 @@ const LoginContextProvider =({children}) =>{
         localStorage.removeItem('token');
         history.push("/");
     }
+    const countNumberInCart = () => {
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        let count = 0
+        for (var item in cart) {
+            count++
+        }
+        setNumberProductInCart(count)
+    }
     //context data
     const LoginContextData = {
         Id : Id,
         Username :Username , 
         Fullname :Fullname , 
         IsLogin : isLogin,
+        numberProductInCart: numberProductInCart,
         LoginDispatch,
         LogoutDispatch,
+        countNumberInCart,
+
     }
     //return provider
     return(

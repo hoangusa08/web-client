@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import API from '../Config/Api';
 import NumberFormat from 'react-number-format';
 import CartItem from './CartItem'
-
+import {LoginContext} from '../../context/LoginContext'
 function Cart() {
-
+    const numberCart = useContext(LoginContext);
     const [productItem, setProductItem] = useState([]);
     const [total, setTotal] = useState(0);
 
@@ -61,14 +61,13 @@ function Cart() {
 	
 
     const removeFromCart = (product) => {
-       // let productItem = productItem.filter((item) => item.id !== product.id);
         setProductItem(productItem.filter((item) => item.id !== product.id));
         let cart = JSON.parse(localStorage.getItem('cart')); //get cart form localStorage and convert to array
         delete cart[product.id.toString()]; //delete item in cart with id delete
         localStorage.setItem('cart', JSON.stringify(cart)); //convert cart to json and save to localStorage
-        // let total = this.state.total - (product.qty * product.price) 
+       
         setTotal(total - (product.qty * product.price))
-        // this.setState({productItem, total});
+       numberCart.countNumberInCart()
     }
 
     const changeQty = (product, qty) => {
@@ -86,14 +85,12 @@ function Cart() {
             total += productItem[i].price * productItem[i].qty;
         }
         localStorage.setItem('cart', JSON.stringify(cart)); //convert cart to json and save to localStorage
-        // this.setState({total});
+
         setTotal(total)
     }
 
    
     const renderProductCart = () => {  
-        // let {productItem} = this.state
-        // console.log("heello", productItem)   
         if(Array.isArray(productItem) && productItem.length > 0) {
             return productItem.map((product, index) => 
                 

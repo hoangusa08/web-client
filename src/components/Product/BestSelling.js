@@ -44,7 +44,7 @@ function BestSelling() {
                         <div className="row align-items-center product-slider product-slider-4">
                             <Carousel breakPoints={breakPoints}>
                                 {listProductBL.map((product) => (
-                                    <Card product={product} key={product.id}></Card>
+                                    <Card product={product} key={product.id} star={[]}></Card>
                                 ))}
                             </Carousel>
                         </div>

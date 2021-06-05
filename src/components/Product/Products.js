@@ -2,7 +2,6 @@ import Api from '../Config/Api';
 import React, {useEffect, useState} from 'react'
 import Card from './Card';
 import {Link} from 'react-router-dom'
-import axios from 'axios';
 function Products(props) {
     const [listProduct , setlistProduct] = useState([]);
     const [listCategory, setlistCategory] = useState([]);
@@ -15,7 +14,7 @@ function Products(props) {
     const [pageIndex, setpageIndex] = useState(0)
     const [totalPage, settotalPage] = useState(0)
     const [searchInput, setsearchInput] = useState( props.location.state.search);
-    var cout = 0
+    const [star, setstar] = useState([])
     useEffect(() => {
         console.log(filter)
         async function get() {
@@ -25,6 +24,10 @@ function Products(props) {
                         setlistProduct(response.data.content);
                         setpageIndex(response.data.pageIndex)
                         settotalPage(response.data.totalPage)
+                    }).catch((error) =>{
+                    });
+                    Api.get('client/product/star').then((response)=> {
+                        setstar(response.data.content);
                     }).catch((error) =>{
                     });
                     break;
@@ -53,6 +56,10 @@ function Products(props) {
                         settotalPage(response.data.totalPage)
                     }).catch((error) =>{
                     });
+                    Api.get(`client/product/star?page=${id}`).then((response)=> {
+                        setstar(response.data.content);
+                    }).catch((error) =>{
+                    });
                     break;
                 case 8 :
                     let id8 = pageIndex+1;
@@ -60,6 +67,10 @@ function Products(props) {
                         setlistProduct(response.data.content);
                         setpageIndex(response.data.pageIndex)
                         settotalPage(response.data.totalPage)
+                    }).catch((error) =>{
+                    });
+                    Api.get(`client/product/star?page=${id8}`).then((response)=> {
+                        setstar(response.data.content);
                     }).catch((error) =>{
                     });
                     break;
@@ -78,14 +89,14 @@ function Products(props) {
     }, [filter]);
     useEffect(() => {
         async function getCategoryAndBrand() {
-            axios.all([
-                Api.get('client/category/all'),
-                Api.get('client/brand/all')
-            ]).then((response)=> {
-                console.log(response);
-                setlistCategory(response[0].data);
-                setlistBrand(response[1].data);
-            });  
+            Api.get('client/category/all').then((response)=> {
+                setlistCategory(response.data);
+            }).catch((error) =>{
+            });
+            Api.get('client/brand/all').then((response)=> {
+                setlistBrand(response.data);
+            }).catch((error) =>{
+            });
         }
         getCategoryAndBrand();
     }, []);
@@ -158,16 +169,22 @@ function Products(props) {
                                                         <button onClick={SortName.bind(this,5)}>Price (Low to High)</button>                                                        
                                                         <button onClick={SortName.bind(this,6)}>Price (High to low)</button>
                                                     </div>
-                                                   
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                { (listProduct.length === 0) && ( <div className="row">
+                                                                    <div className="col-md-6"></div>
+                                                                    <p className="col-md-6" style={{color: "red",marginTop :"20px"}}>No results</p>
+                                                                    </div>)
+                                        }
                                 </div>
                             </div>
                             {listProduct.map((product) => (
-                                <Card product={product} key={cout++}></Card>
+                                <Card product={product} key={product.id} star={star}></Card>
                             ))} 
+                          
                         </div>
                         
                         <div className="col-md-12">

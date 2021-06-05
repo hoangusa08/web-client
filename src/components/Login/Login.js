@@ -24,14 +24,14 @@ function Login() {
                     LoginDispatch();
                     history.push("/");
                 }else{
-                    setErrorMessage("account dont'correct");
+                    setErrorMessage("Account is not correct");
                 }
             }).catch((error) =>{
                 setErrorMessage(error.response.data.message);
                 setspace("");
             });
         }else {
-            setspace("you need to enter username or password");
+            setspace("You need to enter username or password");
             setErrorMessage("");
         }
     }
