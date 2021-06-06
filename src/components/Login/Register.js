@@ -5,7 +5,7 @@ import Api from '../Config/Api'
 function Register() {
     const history=useHistory();
     const [user , setuser] = useState({
-        userName: "",
+        username: "",
         password: "",
         fullname: "",
         address: "",
@@ -28,7 +28,7 @@ function Register() {
                     alert(response.data.message);
                     history.push("/login");
                 }).catch((error) =>{
-                    alert(error.message);
+                    alert(error.response.data);
                     console.log(error.response.data)
                 });
             }
@@ -74,7 +74,7 @@ function Register() {
                                     <div className="col-md-6">
                                         <label>User Name</label>
                                         <input className="form-control" type="text" placeholder="username"
-                                         onChange={e => setuser({...user ,userName : e.target.value})} value={user.userName}></input>
+                                         onChange={e => setuser({...user ,username : e.target.value})} value={user.username}></input>
                                     </div>
                                     <div className="col-md-6">
                                         <label>Password</label>
