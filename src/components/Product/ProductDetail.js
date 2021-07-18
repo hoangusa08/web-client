@@ -223,7 +223,8 @@ function ProductDetail() {
                                     <div id="reviews" className="container tab-pane active">
                                             {review.map((review) => (
                                                 <div className="reviews-submitted" key={review.id}>
-                                                    <div className="reviewer">{review.name_User} date: {review.timeReview}</div>
+                                                    <div className="reviewer">{review.name_User}</div>
+                                                    <div>Date: {review.timeReview}</div>
                                                     <div className="ratting">
                                                         <i className={review.number_Of_Star >=1 ?"fa fa-star": review.number_Of_Star >= 0.5 ? 'fa fa-star-half':'fa fa-star-o'}></i>
                                                         <i className={review.number_Of_Star >=2 ?"fa fa-star": review.number_Of_Star >= 1.5 ? 'fa fa-star-half':'fa fa-star-o'}></i>
@@ -326,18 +327,18 @@ function ProductDetail() {
                         
                         <div className="sidebar-widget tag">
                             <h2 className="title">Tags Cloud</h2>
-                            <a href="#">Lorem ipsum</a>
-                            <a href="#">Vivamus</a>
-                            <a href="#">Phasellus</a>
-                            <a href="#">pulvinar</a>
-                            <a href="#">Curabitur</a>
-                            <a href="#">Fusce</a>
-                            <a href="#">Sem quis</a>
-                            <a href="#">Mollis metus</a>
-                            <a href="#">Sit amet</a>
-                            <a href="#">Vel posuere</a>
-                            <a href="#">orci luctus</a>
-                            <a href="#">Nam lorem</a>
+                            <a href="a">Lorem ipsum</a>
+                            <a href="a">Vivamus</a>
+                            <a href="a">Phasellus</a>
+                            <a href="a">pulvinar</a>
+                            <a href="a">Curabitur</a>
+                            <a href="a">Fusce</a>
+                            <a href="a">Sem quis</a>
+                            <a href="a">Mollis metus</a>
+                            <a href="a">Sit amet</a>
+                            <a href="a">Vel posuere</a>
+                            <a href="a">orci luctus</a>
+                            <a href="a">Nam lorem</a>
                         </div>
                     </div>
                 </div>

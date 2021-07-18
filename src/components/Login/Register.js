@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import Api from '../Config/Api'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Register() {
     const history=useHistory();
     const [user , setuser] = useState({
@@ -16,7 +19,7 @@ function Register() {
     const [message , setmessage] = useState("")
     const [RetypePassword, setRetypePassword] = useState("");
     const register =  (e) =>{
-        console.log(user);
+        toast.configure();
         if( user.fullName === "" || user.phoneNumber === "" || user.password === "" || user.address === "" || user.email === "" || user.username === "" || RetypePassword ==="" ) {
             setmessage("You have not entered enough");
         }else {
@@ -25,7 +28,7 @@ function Register() {
             }
             else {
                 Api.post("client/register/user", user).then((response)=> {
-                    alert(response.data.message);
+                    toast('Register New Account Successfully', {position : toast.POSITION.TOP_CENTER})
                     history.push("/login");
                 }).catch((error) =>{
                     alert(error.response.data);
