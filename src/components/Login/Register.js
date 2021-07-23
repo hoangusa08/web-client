@@ -17,7 +17,6 @@ function Register() {
     });
     const [message , setmessage] = useState("")
     const [RetypePassword, setRetypePassword] = useState("");
-    const [value, setValue] = useState(null);
     const register =  (e) =>{
         toast.configure();
         if( user.fullName === "" || user.phoneNumber === "" || user.password === "" || user.address === "" || user.email === "" || user.username === "" || RetypePassword ==="" ) {

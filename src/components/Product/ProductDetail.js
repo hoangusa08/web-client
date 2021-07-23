@@ -32,10 +32,9 @@ function ProductDetail() {
     const [colorSizeXL , setcolorSizeXL] = useState("")
     const [colorSizeXXL , setcolorSizeXXL] = useState("")
     const [brandRelated, setbrandRelated] = useState([]);
-    // const [cateRelated, setcateRelated] = useState([])
+    const id = history.location.pathname.split("/")[2];
     const [quantity, setQuantity] = useState(1);
     const addToCart = (e) => {
-        console.log(e.target)
         let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {};
         let id = e.target.id.toString();
         
@@ -71,7 +70,6 @@ function ProductDetail() {
             }
     }, [filter]);
     useEffect(() => {
-        const id = history.location.pathname.split("/")[2];
         Api.get(`client/product/${id}`).then((response)=> {
             setProduct(response.data);
             console.log(response.data)
@@ -88,6 +86,7 @@ function ProductDetail() {
             }).catch((error) =>{
             });
         }).catch((error) =>{
+            console.log(error)
         });
         Api.get(`client/review/${id}`).then((response)=> {
                 setreview(response.data.content);
@@ -138,6 +137,36 @@ function ProductDetail() {
         } else {
             history.push("/login")
         }
+    }
+    if(isNaN(parseInt(id))){
+        return(
+        <div className="row page_error">
+            <div  className="col-md-4" ></div>
+            <div className="col-md-4">
+                <div className="error-template">
+                    <h1>
+                        Oops!</h1>
+                    <h2>
+                        404 Not Found</h2>
+                    <div className="error-details">
+                        Sorry, an error has occured, Requested page not found!
+                    </div>
+                </div>
+            </div>
+        </div>
+        )
+    }
+    if(Product.name === undefined){
+        return(
+            <div className="row page_error" >
+                <div  className="col-md-4" ></div>
+                <div className="col-md-4">
+                    <div className="error-template">
+                        <h1>Product does not exist</h1>
+                    </div>
+                </div>
+            </div>
+            )
     }
     return (
         <div className="product-detail">

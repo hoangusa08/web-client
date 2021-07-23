@@ -352,6 +352,10 @@ h2 {
     cursor:auto;
 }
 
+.page_error{
+    height: 500px;
+}
+
 
 .bottom-bar .search input[type=text] {
     width: 100%;
