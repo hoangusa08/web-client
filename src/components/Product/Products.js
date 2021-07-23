@@ -7,77 +7,74 @@ function Products(props) {
     const [listCategory, setlistCategory] = useState([]);
     const [listBrand, setlistBrand] = useState([]);
     const [filter , setfilter] = useState({
-        check  : props.location.state.check, 
-        id  : props.location.state.id,
-        search : props.location.state.search
+        check  : props.location.state ? props.location.state.check : 0 , 
+        id  : props.location.state ? props.location.state.id : 0 ,
+        search : props.location.state ? props.location.state.search : ""
     });
     const [pageIndex, setpageIndex] = useState(0)
     const [totalPage, settotalPage] = useState(0)
-    const [searchInput, setsearchInput] = useState( props.location.state.search);
+    const [searchInput, setsearchInput] = useState( props.location.state ? props.location.state.search : "");
     const [star, setstar] = useState([])
     useEffect(() => {
-        console.log(filter)
         async function get() {
             switch (filter.check) {
-                case 0:
-                    Api.get('client/product').then((response)=> {
+                case 0 : //mặc định
+                    await Api.get('client/product').then((response)=> {
                         setlistProduct(response.data.content);
                         setpageIndex(response.data.pageIndex)
                         settotalPage(response.data.totalPage)
                     }).catch((error) =>{
                     });
-                    Api.get('client/product/star').then((response)=> {
+                    await Api.get('client/product/star').then((response)=> {
                         setstar(response.data.content);
                     }).catch((error) =>{
                     });
                     break;
-                case 1:
-                    Api.get(`client/category/relateProduct/${filter.id}`).then((response)=> {
+                case 1: //get product by category
+                    await Api.get(`client/category/relateProduct/${filter.id}`).then((response)=> {
                         setlistProduct(response.data.content);
                         setpageIndex(response.data.pageIndex)
                         settotalPage(response.data.totalPage)
                     }).catch((error) =>{
                     });
                     break;
-                case 2:
-                    Api.get(`client/brand/relateProduct/${filter.id}`).then((response)=> {
+                case 2: // get product by brand
+                    await Api.get(`client/brand/relateProduct/${filter.id}`).then((response)=> {
                         setlistProduct(response.data.content);
                         setpageIndex(response.data.pageIndex)
                         settotalPage(response.data.totalPage)
                     }).catch((error) =>{
                     });
                     break;
-                case 7:
-                    console.log(pageIndex)
+                case 7: // previous
                     let id = pageIndex-1;
-                    Api.get(`client/product?page=${id}`).then((response)=> {
+                    await Api.get(`client/product?page=${id}`).then((response)=> {
                         setlistProduct(response.data.content);
                         setpageIndex(response.data.pageIndex)
                         settotalPage(response.data.totalPage)
                     }).catch((error) =>{
                     });
-                    Api.get(`client/product/star?page=${id}`).then((response)=> {
+                    await Api.get(`client/product/star?page=${id}`).then((response)=> {
                         setstar(response.data.content);
                     }).catch((error) =>{
                     });
                     break;
-                case 8 :
+                case 8 : //next
                     let id8 = pageIndex+1;
-                    Api.get(`client/product?page=${id8}`).then((response)=> {
+                    await Api.get(`client/product?page=${id8}`).then((response)=> {
                         setlistProduct(response.data.content);
                         setpageIndex(response.data.pageIndex)
                         settotalPage(response.data.totalPage)
                     }).catch((error) =>{
                     });
-                    Api.get(`client/product/star?page=${id8}`).then((response)=> {
+                    await Api.get(`client/product/star?page=${id8}`).then((response)=> {
                         setstar(response.data.content);
                     }).catch((error) =>{
                     });
                     break;
-                case 9 :
-                    Api.get(`client/product?search=${searchInput}`).then((response)=> {
+                case 9 : // search
+                    await Api.get(`client/product?search=${searchInput}`).then((response)=> {
                         setlistProduct(response.data.content);
-                        console.log(response.data.content)
                     }).catch((error) =>{
                     });
                     break;
@@ -86,14 +83,14 @@ function Products(props) {
             }
          }
         get()
-    }, [filter]);
+    }, [filter,searchInput,pageIndex]);
     useEffect(() => {
         async function getCategoryAndBrand() {
-            Api.get('client/category/all').then((response)=> {
+            await Api.get('client/category/all').then((response)=> {
                 setlistCategory(response.data);
             }).catch((error) =>{
             });
-            Api.get('client/brand/all').then((response)=> {
+            await Api.get('client/brand/all').then((response)=> {
                 setlistBrand(response.data);
             }).catch((error) =>{
             });

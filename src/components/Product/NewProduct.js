@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React , {useState , useEffect} from 'react'
 import Card from './Card'
 import Carousel from 'react-elastic-carousel';
@@ -14,7 +13,6 @@ export default function NewProduct() {
     useEffect(() => {
             Api.get('client/product/new').then((response)=> {
                 setlistProductNP(response.data.content);
-                console.log(response.data.content);
             }).catch((error) =>{
             })
     },[])

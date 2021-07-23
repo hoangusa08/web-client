@@ -1,40 +1,52 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import {useHistory} from 'react-router'
 import {Link} from 'react-router-dom'
 import {LoginContext} from '../../context/LoginContext'
+import Api from '../Config/Api'
 import logo from './image/logo.png'
 function Header() {
     const login = useContext(LoginContext);
-    const [countCart, setCountCart] = useState(0);
+    const [listSearch, setlistSearch] = useState([]);
     const [searchStr, setsearchStr] = useState("")
+    const [toggle, settoggle] = useState(false)
     var fullname = login.Fullname;
     const history = useHistory();
     let numberProductInCart = login.numberProductInCart;
+    const typingTimeoutref = useRef(null)
 
     useEffect(() => {
            login.LoginDispatch();
-           
-    }, [fullname])
+    }, [login])
    
     useEffect(() => {
         login.countNumberInCart()
     }, []);
-    // useEffect(() => {
-    //     let cart = JSON.parse(localStorage.getItem('cart'));
-    //     let count = 0
-    //     for (var item in cart) {
-    //         count++
-    //     }
-    //     setCountCart(count)
-    // }, [JSON.parse(localStorage.getItem('cart'))])
 
+    function handleOnchangeSearch(value) {
+        setsearchStr(value)
+        if(typingTimeoutref.current){
+            clearTimeout(typingTimeoutref.current);
+        }
+        typingTimeoutref.current = setTimeout(() => {
+            Api.get(`client/product?search=${value}`).then((response)=> {
+                settoggle(true)
+                setlistSearch(response.data.content);
+                console.log(response.data.content);
+            }).catch((error) =>{
+            });
+            
+        } , 300)
+    }
+    
     const LogoutHandle = () =>{
         login.LogoutDispatch();
     }
     const ChangeToMyAccount = () => {
         history.push("/myaccount");
     }
+
     function search() {
+        settoggle(false)
         history.push({
             pathname: '/products',
             state: {
@@ -45,7 +57,7 @@ function Header() {
             })
     }
     return (
-        <div>
+        <div onClick={()=> settoggle(false)}>
             <div className="top-bar">
                 <div className="container-fluid">
                     <div className="row">
@@ -116,9 +128,18 @@ function Header() {
                         <div className="col-md-6">
                             <div className="search">
                                 <input type="text" placeholder="Search" 
-                                    onChange={e=>{setsearchStr(e.target.value)}} value={searchStr}></input>
+                                    // onChange={e=>{setsearchStr(e.target.value)}} value={searchStr}></input>
+                                    onChange={e=> handleOnchangeSearch(e.target.value)} value={searchStr}></input>
                                 <button><i className="fa fa-search" onClick={search}></i></button>
                             </div>
+                            <ul >
+                                    {
+                                        (listSearch && toggle) && listSearch.map((p)=>(
+                                            <li onClick = {() => {setsearchStr(p.name)
+                                            settoggle(false)}}>{p.name}</li>
+                                        ))
+                                    }
+                                </ul>
                         </div>
                         <div className="col-md-3">
                             <div className="user">
