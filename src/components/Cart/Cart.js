@@ -171,9 +171,17 @@ function Cart() {
                                             <p>Shipping Cost<span></span></p>
                                             <h2>Grand Total<span><NumberFormat value={total} displayType={'text'} thousandSeparator={true} prefix={'VND'} /></span></h2>
                                         </div>
-                                        <div className="cart-btn">
-                                            <button><Link to="/checkout" style={{color: "black"}}>Checkout</Link></button>
-                                        </div>
+
+                                        {(Array.isArray(productItem) && productItem.length > 0) ? (
+                                            <div className="cart-btn">
+                                                <button><Link to="/checkout" style={{color: "black"}}>Checkout</Link></button>
+                                            </div>
+                                        ) :(
+                                            <div>
+                                                
+                                            </div>
+                                        )}
+
                                     </div>
                                 </div>
                             </div>

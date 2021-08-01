@@ -34,6 +34,7 @@ function Register() {
                     toast('Register New Account Successfully', {position : toast.POSITION.TOP_CENTER})
                     history.push("/login");
                 }).catch((error) =>{
+                    setIsLoading(false)
                     alert(error.response.data);
                     console.log(error.response.data)
                 });

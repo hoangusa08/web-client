@@ -105,7 +105,7 @@ function Checkout() {
         
         const data = {
                 id_user: idUser,
-                id_employee: 1,
+                id_employee: 124,
                 totalMoney: total,
                 listProducts: listItem
             } 
@@ -116,6 +116,7 @@ function Checkout() {
             console.log(response.data)
             // alert("Đặt hàng thành công")
             window.localStorage.removeItem("cart")
+            login.countNumberInCart();
             history.push({
                 pathname: '/home',
                 state: { report: 'Order Success' }
@@ -202,7 +203,7 @@ function Checkout() {
 
                                             <div className="cart-btn ">
                                                 {/* <button>Update Cart</button> */}
-                                                <button><Link to="/checkout" id = {id} style={{color: "black"}} onClick={addBill}>Pay</Link></button>
+                                                <button id = {id} style={{color: "black"}} onClick={addBill}>Confirm To Pay</button>
                                             </div>
                                         </div>
                                     </div>

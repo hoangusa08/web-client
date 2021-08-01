@@ -29,7 +29,9 @@ const LoginContextProvider =({children}) =>{
         localStorage.removeItem('username');
         localStorage.removeItem('fullname');
         localStorage.removeItem('token');
-        history.push("/");
+        localStorage.removeItem('cart')
+        setNumberProductInCart(0)
+        history.push("/"); 
     }
     const countNumberInCart = () => {
         let cart = JSON.parse(localStorage.getItem('cart'));

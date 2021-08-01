@@ -11,7 +11,7 @@ function CheckoutBuyNow(props) {
     const [id, setId] = useState('')
     let history = useHistory();
     const IsLogin = useContext(LoginContext)
-    console.log(IsLogin.IsLogin)
+    // console.log(IsLogin.IsLogin)
     const token = {
         headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`} 
     }
@@ -43,7 +43,7 @@ function CheckoutBuyNow(props) {
         let keys = [];
         for (var item in cart) {
             if(cart.hasOwnProperty(item)){
-            keys.push(item)
+                keys.push(item)
             }
         }
         if (!cart) return; 
@@ -84,46 +84,28 @@ function CheckoutBuyNow(props) {
     const addBill = (e) => {
         e.preventDefault();
         let id = e.target.id.toString();
-        let cart = JSON.parse(localStorage.getItem('cart'));
         let listItem = [];
-    
-        let keys = [];
-        for (var item in cart) {
-            if(cart.hasOwnProperty(item)){
-              keys.push(item)
-            }
-        }
-    
-        for(var item in cart) {
-            var element = {
-                "id" : Number(item),
-                "number" : cart[item],
-            }
 
-            listItem.push(element);      
+        var element = {
+             "id" : idProduct,
+            "number" : 1,
         }
+        listItem.push(element);      
     
- 
-        let flag = true
-        
         const data = {
                 id_user: idUser,
-                id_employee: 1,
+                id_employee: 124,
                 totalMoney: total,
                 listProducts: listItem
-            } 
+        } 
         console.log(data)
         API.post('client/invoice', data, token)
         .then(response => {
-           
             console.log(response.data)
-            // alert("Đặt hàng thành công")
-            // window.localStorage.removeItem("cart")
             history.push({
                 pathname: '/home',
                 state: { report: 'Order Success' }
-            })
-    
+            })  
         })
         .catch(errors => {
               console.log(errors)
@@ -194,7 +176,7 @@ function CheckoutBuyNow(props) {
 
                                             <div className="cart-btn ">
                                                 {/* <button>Update Cart</button> */}
-                                                <button><Link to="/checkout" id = {id} style={{color: "black"}} onClick={addBill}>Pay</Link></button>
+                                                <button id = {id} style={{color: "black"}} onClick={addBill}>Confirm To Pay</button>
                                             </div>
                                         </div>
                                     </div>
