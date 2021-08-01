@@ -7,13 +7,16 @@ function Login() {
     const [userInput , setuserInput] = useState({username:"", password:""});
     const [errorMessage, setErrorMessage] = useState(null);
     const [space , setspace] = useState(null);
+    const [isLoading, setIsLoading] = useState(false)
     const { LoginDispatch} = useContext(LoginContext);
     const history = useHistory();
     const OnSubmitHandle =  (e) =>{
         setErrorMessage("");
         setspace("");
         if (userInput.username !== "" && userInput.password !== ""){
+            setIsLoading(true)
             Api.post("auth/login", userInput).then((response)=> { 
+                setIsLoading(false)
                 const {token, info} = response.data;
                 console.log(response.data)
                 if(response.data.info.roleNames[0] === "customer"){
@@ -68,7 +71,7 @@ function Login() {
                                         <div className="error-mesage"><h3>{errorMessage}</h3></div>
                                     )}
                                     <div className="col-md-12">
-                                        <button className="btn" onClick={OnSubmitHandle}>Submit</button>
+                                        <button className="btn" onClick={OnSubmitHandle}>{isLoading ? "Loading" : "Login"}</button>
                                     </div>
                                 </div>
                             </div>

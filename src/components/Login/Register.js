@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import Api from '../Config/Api'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function Register() {
     const history=useHistory();
+    const [isLoading, setIsLoading] = useState(false)
     const [user , setuser] = useState({
         username: "",
         password: "",
@@ -26,7 +28,9 @@ function Register() {
                 setmessage(" Retype Password Don't Correct ");
             }
             else {
+                setIsLoading(true)
                 Api.post("client/register/user", user).then((response)=> {
+                    setIsLoading(false)
                     toast('Register New Account Successfully', {position : toast.POSITION.TOP_CENTER})
                     history.push("/login");
                 }).catch((error) =>{
@@ -92,7 +96,7 @@ function Register() {
                                         <div className="error-mesage"><h3>{message}</h3></div>
                                     )}
                                     <div className="col-md-12">
-                                        <button className="btn" onClick = {register}>Submit</button>
+                                        <button className="btn" onClick = {register}>{ isLoading ? "Loading" : "Submit"}</button>
                                     </div>
                                 </div>
                             </div>
