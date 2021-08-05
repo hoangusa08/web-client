@@ -32,6 +32,7 @@ function Login() {
             }).catch((error) =>{
                 setErrorMessage(error.response.data.message);
                 setspace("");
+                setIsLoading(false)
             });
         }else {
             setspace("You need to enter username or password");

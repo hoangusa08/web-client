@@ -62,7 +62,7 @@ function ProductDetail() {
         id_user : 0,
         id_product : 0,
         content : "",
-        number_of_star : 0
+        number_of_star : 5
     })
     useEffect(() => {
         if (filter.check === 0){

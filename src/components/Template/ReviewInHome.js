@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import Carousel from 'react-elastic-carousel';
 import reviewImage from './image/review-4.jpg'
+import { Markup } from 'interweave';
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 768, itemsToShow: 2 },
   ];
+  
 export default function ReviewInHome() {
     const [state, setstate] = useState([]);
     useEffect(() => {
@@ -37,7 +39,7 @@ export default function ReviewInHome() {
                                         <i>({review.number_Of_Star} Star)</i>
                                     </div>
                                     <p>
-                                        {review.content}
+                                        <Markup content={review.content} />
                                     </p>
                                 </div>
                             </div>
