@@ -60,7 +60,7 @@ function CartItem(props) {
                 <td>
                     <div className="qty">
                         <button className="btn-minus" onClick={removeQty}><i className="fa fa-minus" ></i></button>
-                        <input type="text" onChange={handleChangeQty} value={quantity}></input>
+                        <input type="text" onChange={handleChangeQty} value={quantity} disabled></input>
                         <button className="btn-plus" onClick={addQty}><i className="fa fa-plus"></i></button>
                     </div>
                 </td>
