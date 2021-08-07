@@ -56,7 +56,7 @@ function PostDetail() {
                                                 <br/>
                                             </div>
                                             <div className="img" >
-                                                {/* <a href="#"><img style={imgStyle} src={post.linkImage} alt="Image"></img></a> */}
+                                                <a href="#"><img style={imgStyle} src={post.linkImage} alt="Image"></img></a>
                                             </div>
                                             <div>
                                                 <br/>
