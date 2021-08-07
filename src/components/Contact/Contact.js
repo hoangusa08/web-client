@@ -5,7 +5,7 @@ function Contact() {
          <div className="contact">
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-lg-4">
+                    <div className="col-lg-6">
                         <div className="contact-info">
                             <h2>Our Office</h2>
                             <h3><i className="fa fa-map-marker"></i>58, Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</h3>
@@ -20,7 +20,7 @@ function Contact() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-lg-6">
                         <div className="contact-info">
                             <h2>Our Store</h2>
                             <h3><i className="fa fa-map-marker"></i>58, Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</h3>
@@ -35,7 +35,7 @@ function Contact() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4">
+                    {/* <div className="col-lg-4">
                         <div className="contact-form">
                             <form>
                                 <div className="row">
@@ -55,7 +55,7 @@ function Contact() {
                                 <div><button className="btn" type="submit">Send Message</button></div>
                             </form>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="col-lg-12">
                         <div className="contact-map">
                            

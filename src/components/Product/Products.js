@@ -222,22 +222,6 @@ function Products(props) {
                                 ))} 
                             </ul>
                         </div>
-                        
-                        <div className="sidebar-widget tag">
-                            <h2 className="title">Tags Cloud</h2>
-                            <a href="a">Lorem ipsum</a>
-                            <a href="b">Vivamus</a>
-                            <a href="c">Phasellus</a>
-                            <a href="d">pulvinar</a>
-                            <a href="e">Curabitur</a>
-                            <a href="f">Fusce</a>
-                            <a href="g">Sem quis</a>
-                            <a href="h">Mollis metus</a>
-                            <a href="i">Sit amet</a>
-                            <a href="k">Vel posuere</a>
-                            <a href="l">orci luctus</a>
-                            <a href="m">Nam lorem</a>
-                        </div>
                     </div>
                 </div>
             </div>

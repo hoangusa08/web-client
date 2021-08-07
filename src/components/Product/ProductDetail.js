@@ -353,22 +353,6 @@ function ProductDetail() {
                                 ))} 
                             </ul>
                         </div>
-                        
-                        <div className="sidebar-widget tag">
-                            <h2 className="title">Tags Cloud</h2>
-                            <a href="a">Lorem ipsum</a>
-                            <a href="a">Vivamus</a>
-                            <a href="a">Phasellus</a>
-                            <a href="a">pulvinar</a>
-                            <a href="a">Curabitur</a>
-                            <a href="a">Fusce</a>
-                            <a href="a">Sem quis</a>
-                            <a href="a">Mollis metus</a>
-                            <a href="a">Sit amet</a>
-                            <a href="a">Vel posuere</a>
-                            <a href="a">orci luctus</a>
-                            <a href="a">Nam lorem</a>
-                        </div>
                     </div>
                 </div>
             </div>
