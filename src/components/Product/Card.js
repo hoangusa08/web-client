@@ -1,7 +1,23 @@
 import React, {useState , useContext } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {useHistory} from 'react-router'
 import {LoginContext} from '../../context/LoginContext'
+const iStyle = {
+    position: "absolute",
+    marginTop: "-8px",
+    marginLeft: "-20px",
+    paddingTop: "10px",
+    // backgroundColor: "rgb(255, 111, 97)",
+    width: "40px",
+    height: "40px",
+};
+
+const aStyle = {
+    position: "relative",
+    with: "40px",
+    height: "40px"
+}
+
 function Card(props) {
     const login = useContext(LoginContext);
     const {product , star} = props;
@@ -14,7 +30,7 @@ function Card(props) {
     if (name.length > 5) { product.name = name[0]+" "+name[1]+" "+name[2]+" "+name[3]+" "+name[4]+"..."}
     const [quantity, setquantity] = useState(1);
     const addToCart = (e) => {
-        console.log(e.target)
+        // console.log(e.target)
         let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {};
         let id = e.target.id.toString();
         
@@ -45,7 +61,7 @@ function Card(props) {
                             <img src={product.link} alt={product.name_Image}></img>
                         </a>
                         <div className="product-action">
-                            <a ><i id={product.id} onClick={addToCart} className="fa fa-cart-plus"></i></a>
+                            <a><i style = {iStyle} id={product.id} onClick={addToCart} className="fa fa-cart-plus"></i></a>
                         </div>
                     </div>
                     <div className="product-price">
